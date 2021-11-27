@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React, { useRef } from "react";
 import './App.css';
+import Demo from './components/Demo'
 
 function App() {
+  const innerRef = useRef();
+
+  const getLocation = () => {
+    innerRef.current && innerRef.current.getLocation();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <article style={{ textAlign: "center" }}>
+        <Demo onError={(error) => console.log(error)} ref={innerRef} />
+        <button
+          className="pure-button pure-button-primary"
+          onClick={getLocation}
+          type="button"
         >
-          Learn React
-        </a>
-      </header>
+          Get location
+        </button>
+      </article>
     </div>
   );
 }
