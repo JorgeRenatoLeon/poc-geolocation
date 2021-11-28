@@ -14,7 +14,7 @@ function App() {
       <article style={{ textAlign: "center" }}>
         <Demo onError={(error) => console.log(error)} ref={innerRef} />
         <button
-          className="pure-button pure-button-primary"
+          className="buttonSubmit"
           onClick={getLocation}
           type="button"
         >

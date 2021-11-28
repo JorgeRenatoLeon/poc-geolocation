@@ -61,11 +61,7 @@ const Demo = (props) => {
     
     return (
         <div
-            style={{
-                fontSize: "large",
-                fontWeight: "bold",
-                margin: "2rem",
-            }}
+            className="demo"
         >
             {!props.isGeolocationAvailable ? (
                 <div>Your browser does not support Geolocation.</div>
@@ -74,7 +70,9 @@ const Demo = (props) => {
             ) : props.coords ? (
                 <div>
                     <div>
-                        You are at{" "}
+                        <span className="subtitles">
+                            Tus coordenadas son:{" "}
+                        </span>                        
                         <span className="coordinate">
                             {formatDegrees(props.coords.latitude, false)}
                         </span>
@@ -91,17 +89,23 @@ const Demo = (props) => {
                         .
                     </div>
                     <div>
-                        Departamento:{" "}
+                        <span className="subtitles">
+                            Departamento:{" "}
+                        </span>
                         <span className="departamento">
                             {departamento.long_name}
                         </span>
                         <br/>
-                        Provincia:{" "}
+                        <span className="subtitles">
+                            Provincia:{" "}
+                        </span>
                         <span className="provincia">
                             {provincia.long_name}
                         </span>
                         <br/>
-                        Distrito:{" "}
+                        <span className="subtitles">
+                            Distrito:{" "}
+                        </span>
                         <span className="distrito">
                             {distrito.long_name}
                         </span>
