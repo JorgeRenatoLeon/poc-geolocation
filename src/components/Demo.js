@@ -22,7 +22,18 @@ const Demo = (props) => {
     const [provincia, setProvincia] = React.useState("Empty")
     const [departamento, setDepartamento] = React.useState("Empty")
     const [distrito, setDistrito] = React.useState("Empty")
+    const getResultsFiltered = (results) =>{
+        const resultFiltered=[];
+        results.forEach(element => {
+           const components = element.address_components;
+           let distritos = components.filter((component => component.types.includes("locality")));
+           let distritoSelected = distritos.length>0? distritos[0]:distritos;
+           if (distritoSelected !== "Cercado de Lima")
+            resultFiltered.push(element);
+        });
+        return resultFiltered.length>0? resultFiltered[0]:results[0];
 
+    }
     React.useEffect(()=>{
     
         if(props.isGeolocationAvailable && props.isGeolocationEnabled && props.coords){
@@ -30,7 +41,8 @@ const Demo = (props) => {
                 apiGoogleUrl + props.coords.latitude + "," + props.coords.longitude + apiGoogleKey
             )
             .then( response => {
-                let result = response.data.results[0]
+                //filter when the result is cercado de Lima
+                let result = getResultsFiltered(response.data.results);                
                 console.log(result);
                 let components = result.address_components;
                 setDepartamento(components.filter((component => component.types.includes("administrative_area_level_1")))[0])
