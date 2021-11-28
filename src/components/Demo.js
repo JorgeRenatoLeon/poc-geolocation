@@ -27,11 +27,11 @@ const Demo = (props) => {
         results.forEach(element => {
            const components = element.address_components;
            let distritos = components.filter((component => component.types.includes("locality")));
-           let distritoSelected = distritos.length>0? distritos[0]:distritos;
-           if (distritoSelected !== "Cercado de Lima")
+           let distritoSelected = distritos.length > 0 ? distritos[0] : components.filter((component => component.types.includes("sublocality"))).length>0 ? components.filter((component => component.types.includes("sublocality")))[0] : {};
+           if (distritoSelected.long_name !== "Cercado de Lima" && distritoSelected.long_name !== "Lima" )
             resultFiltered.push(element);
         });
-        return resultFiltered.length>0? resultFiltered[0]:results[0];
+        return resultFiltered.length > 0 ? resultFiltered[0]:results[0];
 
     }
     React.useEffect(()=>{
@@ -50,7 +50,7 @@ const Demo = (props) => {
                 
                 let distritos = components.filter((component => component.types.includes("locality")))
 
-                setDistrito( distritos.length > 0 ? distritos[0] : components.filter((component => component.types.includes("sublocality")))[0])
+                setDistrito( distritos.length > 0 ? distritos[0] : components.filter((component => component.types.includes("sublocality"))).length>0 ? components.filter((component => component.types.includes("sublocality")))[0] : {})
             })
             .catch(e => {
                 console.warn(e)
